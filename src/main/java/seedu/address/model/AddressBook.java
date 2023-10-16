@@ -86,18 +86,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
 
+    //handle the duplicate case
+    public boolean personAlreadyInTeam(Name teamToAddTo, Name devToAdd) {
+        Team team = getTeam(teamToAddTo);
+        return team.containsDev(devToAdd);
+    }
+
+    //handle case where team doesnt exist
     public boolean invalidAddToTeam(Name teamToAddTo, Name devToAdd) {
         requireNonNull(teamToAddTo);
         requireNonNull(devToAdd);
 
         Team team = getTeam(teamToAddTo);
-        if (team == null) {
-            return false;
-        } else {
-            return !team.containsDev(devToAdd);  //if true, then you can add this dev. Else he alr exists.
-        }
-
+        System.out.println(team == null);
+        return team == null;
     }
+
 
     /**
      * Adds a person to the address book.
@@ -145,10 +149,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     public Team getTeam(Name teamName) {
         requireNonNull(teamName);
-        String teamNameInString = teamName.toString();
 
         Optional<Team> matchingTeam = teams.stream()
-                .filter(team -> team.getTeamName().equals(teamNameInString))
+                .filter(team -> team.getTeamName().equals(teamName))
                 .findFirst();
 
         return matchingTeam.orElse(null);

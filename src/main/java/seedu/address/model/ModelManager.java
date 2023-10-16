@@ -100,13 +100,17 @@ public class ModelManager implements Model {
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
+    @Override
+    public Person getPerson(Name name) {
+        return addressBook.getPerson(name);
+    }
+
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
     }
-
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
@@ -165,9 +169,14 @@ public class ModelManager implements Model {
         return addressBook.hasTeam(teamName);
     }
 
+    public boolean personAlreadyInTeam(Name teamToAddTo, Name devToAdd) {
+        return addressBook.personAlreadyInTeam(teamToAddTo, devToAdd);
+    }
+
     public boolean invalidAddToTeam(Name teamToAddTo, Name devToAdd) {
         return addressBook.invalidAddToTeam(teamToAddTo, devToAdd);
     }
+
 
     /**
      * Adds a team to the team structure.
@@ -203,8 +212,6 @@ public class ModelManager implements Model {
 
     }
 
-
-
     public Team getTeam(Name teamName) {
         requireNonNull(teamName);
         return addressBook.getTeam(teamName);
@@ -212,7 +219,7 @@ public class ModelManager implements Model {
     //only run when you know that team exists
     public void addToTeam(Name teamToAddTo, Name devToAdd) {
         Team team = getTeam(teamToAddTo);
-        Developer developer = (Developer) addressBook.getPerson(devToAdd);
+        Person developer = addressBook.getPerson(devToAdd);
         team.addDev(developer);
     }
 

@@ -31,7 +31,7 @@ public class AddDevToTeamParser implements Parser<AddDevToTeamCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TEAMNAME, PREFIX_NAME);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_TEAMNAME).get());
-        Name devToAdd = ParserUtil.parseName(argMultimap.getValue(PREFIX_TEAMLEADER).get());
+        Name devToAdd = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
 
         return new AddDevToTeamCommand(name, devToAdd);

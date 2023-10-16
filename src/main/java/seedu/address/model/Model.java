@@ -65,6 +65,8 @@ public interface Model {
      */
     boolean hasPerson(Person person);
 
+    boolean personAlreadyInTeam(Name teamToAddTo, Name devToAdd);
+
     boolean invalidAddToTeam(Name teamToAddTo, Name devToAdd);
 
     /**
@@ -77,6 +79,7 @@ public interface Model {
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
+    Person getPerson(Name name);
     void addPerson(Person person);
 
     /**

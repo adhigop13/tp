@@ -15,7 +15,7 @@ public class Team {
     //private HashSet<> developerHashCodeSet;
     private Person teamLeader;
     private Name teamLeaderName;
-    private ArrayList<Developer> developers;
+    private ArrayList<Person> developers = new ArrayList<>();
 
     //todo: set will ignore duplicated values, do we need to notify the user that he added a duplicate value or not?
     //use the hash code for representing each developer. The hash code will be updated when there is a change
@@ -91,7 +91,7 @@ public class Team {
                 .anyMatch(devNames -> devNames.getName().equals(name));
         return devExistsInTeam;
     }
-    public void addDev(Developer developer) {
+    public void addDev(Person developer) {
         developers.add(developer);
     }
 
